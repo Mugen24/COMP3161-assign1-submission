@@ -144,7 +144,6 @@ evalC e ref@(App (Prim x) vexpr) =
           _ -> error $ "Null check non array: " ++ show v1
 
       _ -> 
-        trace ("Shouldn't happen: Prim " ++ show x)
         -- Return the closure of Prim for the outer var to evaluate
         P (Sus e (App (Prim x) vexpr))
 
