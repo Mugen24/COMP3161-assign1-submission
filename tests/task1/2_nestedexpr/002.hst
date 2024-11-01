@@ -1,0 +1,2 @@
+main :: F Int = reduce (*) 2 3
+                to x in (+) 1 x

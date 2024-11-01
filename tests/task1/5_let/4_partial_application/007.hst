@@ -1,0 +1,24 @@
+--
+--  maximal number of pieces formed when slicing a pancake with n cuts.
+--  p = \n -> (n * (n+1) / 2) + 1
+--
+main :: F Int
+     = 
+    let succ :: U (Int -> F Int) =
+        thunk(recfun succ :: (Int -> F Int) n = n + 1);
+
+    in let
+        polygonal :: U (Int -> F Int) = thunk(
+            recfun polygonal :: (Int -> F Int) n =
+                let a :: U(F Int) = 
+                        thunk(let b :: U(F Int) = 
+                                thunk(let c :: U(F Int) = 
+                                        thunk(let d :: U(F Int) = 
+                                                thunk(let a :: Int = n;
+                                                      in reduce force succ n to b
+                                                      in reduce a * b to c
+                                                         in reduce c / 2 to d
+                                                         in d + 1);
+                in force d); in force c); in force b); in force a);
+
+    in force polygonal 50

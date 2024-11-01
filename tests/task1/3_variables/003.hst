@@ -1,0 +1,3 @@
+main :: F [Int] = let nil :: [Int] = Nil;
+                  in reduce force Cons 3 nil
+                     to cons3nil in produce cons3nil

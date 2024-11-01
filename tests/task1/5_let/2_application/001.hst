@@ -1,0 +1,8 @@
+main :: F Int
+     = let f :: U (Int -> F Int) =
+            thunk(recfun f :: (Int -> F Int) x = 2 * x);
+       in let
+           g :: U (Int -> F Int) =
+            thunk(recfun g :: (Int -> F Int) x = -x);
+
+       in reduce force f 2 to x in force g x

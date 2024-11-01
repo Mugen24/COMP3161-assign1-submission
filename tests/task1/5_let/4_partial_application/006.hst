@@ -1,0 +1,11 @@
+main :: F Int
+     =
+    let apply :: U(U(Int -> F Int) -> Int -> F Int) = thunk(
+        recfun apply :: (U (Int -> F Int) -> Int -> F Int) f = 
+            recfun g :: (Int -> F Int) x = force f x);
+
+    in let plus :: U (Int -> Int -> F Int) = thunk(
+       recfun plus :: (Int -> Int -> F Int) x = 
+         recfun g :: (Int -> F Int) y = x + y);
+
+    in force apply (thunk(force plus 1)) 2

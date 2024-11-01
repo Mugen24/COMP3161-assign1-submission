@@ -1,0 +1,7 @@
+main :: F Int
+  = let x :: Int = 8; in
+    let y :: U(F Int) = thunk(produce x); in
+    let x :: Int = 9; in
+    let y :: U(F(U(F Int))) = thunk(produce y); in
+    let x :: Int = 10; in
+    reduce force y to z in force z

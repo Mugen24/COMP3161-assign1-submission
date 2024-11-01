@@ -1,0 +1,18 @@
+main :: F [Int] =
+  reduce reduce reduce force Cons 2 Nil
+                to x in force Cons 1 x
+         to x in force Cons 0 x
+  to xs in
+    let mapInc :: U([Int] -> F [Int]) =
+          thunk((recfun map :: U (Int -> F Int) -> ([Int] -> F [Int]) f =
+                   recfun map2 :: ([Int] -> F [Int]) xs =
+                     reduce null xs to b in
+                     if b
+                       then produce Nil
+                       else reduce tail xs to xs' in
+                            reduce force map2 xs' to fxs in
+                            reduce head xs to x in
+                            reduce force f x to fx in
+                            force Cons fx fxs)
+                 (thunk (recfun inc :: (Int -> F Int) x = x + 1)));
+                     in force mapInc xs

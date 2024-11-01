@@ -1,0 +1,30 @@
+--
+-- until p f  yields the result of applying f until p holds.
+--
+-- (slow in the interpreter)
+--
+
+main :: F Int
+     = 
+    let otherwise :: Bool = True;
+
+    in let
+        longtime :: U (Int -> F Bool)
+                 = thunk(recfun f :: (Int -> F Bool) i = 100000 < i);
+
+    in let
+        inc :: U (Int -> F Int) = 
+                   thunk(recfun f :: (Int -> F Int) x = x + 1);
+
+    in let
+        until :: U (U (Int -> F Bool) -> U (Int -> F Int) -> Int -> F Int) =
+          thunk (recfun until :: (U (Int -> F Bool) -> U (Int -> F Int) -> Int -> F Int) p =
+                  recfun v_ :: (U (Int -> F Int) -> Int -> F Int) f =
+                      recfun w_ :: (Int -> F Int) x =
+                        reduce force p x
+                        to b in
+                          if b then produce x
+                          else
+                            reduce force f x to
+                            y in force until p f y);
+    in force until longtime inc 0

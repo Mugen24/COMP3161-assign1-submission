@@ -1,0 +1,9 @@
+main :: F Int =
+    let f :: U (Int -> Int  -> Int -> Int -> Int -> F Int) = thunk
+        (recfun f :: (Int -> Int -> Int -> Int -> Int -> F Int) x =   -- 6
+           recfun f :: (Int -> Int -> Int -> Int  -> F Int) x =       -- 5
+              recfun f :: (Int -> Int -> Int -> F Int) x =            -- 4
+                 recfun f :: (Int -> Int -> F Int) x =                -- 3
+                    recfun f :: (Int -> F Int) x =                    -- 2
+                        (2*x)) ;
+    in force f 0 0 0 0 7 -- 2 * 7

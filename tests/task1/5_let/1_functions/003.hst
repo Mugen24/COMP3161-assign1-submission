@@ -1,0 +1,10 @@
+main :: F Int =
+    let main1 :: U (Int -> F Int)
+             = thunk (recfun main1 :: (Int -> F Int) x =
+                           reduce x < 10
+                           to y in
+                             if y then
+                               reduce x+1
+                               to z in force main1 z
+                               else produce x);
+    in force main1 0

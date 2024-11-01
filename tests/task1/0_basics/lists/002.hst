@@ -1,0 +1,3 @@
+main :: F [Int] = reduce reduce force Cons 1 Nil
+                         to x in force Cons 2 x
+                  to x in force Cons 3 x

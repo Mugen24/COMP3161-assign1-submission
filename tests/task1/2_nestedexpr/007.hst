@@ -1,0 +1,13 @@
+-- 1 + 1 - 1 * 1 / 1 + 1 <= (2 + 2 - 2 + 2 / 2 * 2 - 2)
+main :: F Bool = reduce reduce reduce reduce (/) 2 2
+                                      to x in (*) x 2
+                               to y in reduce reduce (+) 2 2
+                                              to x in (-) x 2
+                                       to x in (+) x y
+                        to x in (-) x 2
+                 to z in reduce reduce reduce reduce (*) 1 1
+                                              to x in (/) x 1
+                                       to y in reduce (+) 1 1
+                                               to x in (-) x y
+                                to x in (+) x 1
+                         to x in (<=) x z

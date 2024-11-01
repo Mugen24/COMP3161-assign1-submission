@@ -1,0 +1,22 @@
+main :: F Bool
+    = let not :: U (Bool -> F Bool) =
+            thunk(recfun f :: (Bool -> F Bool) x = 
+                    if x then produce False else produce True);
+      in let 
+           and :: U (Bool -> Bool -> F Bool) =
+            thunk(recfun and :: (Bool -> Bool -> F Bool) x = 
+                    recfun and' :: (Bool -> F Bool) y =
+                      if x then if y then produce True else produce False else produce False);
+       in let               
+           or :: U (Bool -> Bool -> F Bool) =
+            thunk (recfun or :: (Bool -> Bool -> F Bool) x = 
+                    recfun or' :: (Bool -> F Bool) y =
+                      if x then produce True else if y then produce True else produce False);
+       in let x :: Bool = True;
+       in let y :: Bool = False;
+       in reduce force not x
+          to a in
+          reduce force not y
+          to b in
+          reduce force and b x
+          to c in force or a c

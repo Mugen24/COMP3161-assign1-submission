@@ -1,0 +1,2 @@
+main :: F Int
+  = force(thunk(produce 2020))

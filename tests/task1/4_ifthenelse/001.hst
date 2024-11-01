@@ -1,0 +1,3 @@
+main :: F Int = if False
+                   then produce 1
+                   else produce 0

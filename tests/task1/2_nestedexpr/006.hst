@@ -1,0 +1,2 @@
+main :: F Int = reduce (- 2)
+                to x in (/) x 2

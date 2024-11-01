@@ -1,0 +1,2 @@
+main :: F Bool = let t :: Bool = True;
+                 in produce t

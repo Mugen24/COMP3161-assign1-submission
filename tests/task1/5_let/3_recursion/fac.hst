@@ -1,0 +1,6 @@
+main :: F Int = (recfun _fac :: Int -> F Int _n = reduce (==) _n 0
+                                                  to x in if x
+                                                             then produce 1
+                                                             else reduce reduce (-) _n 1
+                                                                         to x in force _fac x
+                                                                  to x in (*) _n x) 14

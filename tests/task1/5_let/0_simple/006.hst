@@ -1,0 +1,19 @@
+main :: F Int =
+  -- x + y
+  let plus :: U(Int -> Int -> F Int) =
+    thunk (recfun g :: (Int -> Int -> F Int) x =
+             (recfun g' :: (Int -> F Int) y = x + y));
+  -- x + 1
+  in let inc :: U(Int -> F Int) =
+       thunk (recfun g :: (Int -> F Int) x = x + 1);
+    -- f x  = g (4 + 1) 10
+  in let f :: U(Int -> F Int) =
+    thunk (recfun f :: (Int -> F Int) x =
+           reduce x == 10 to
+           b in if b then produce 10
+                else reduce reduce x + 1
+                            to z in force f z
+                     to y in
+                       reduce force inc 4
+                       to z in force plus z y);
+  in reduce (-1003) to x in force f x

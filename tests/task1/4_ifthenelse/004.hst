@@ -1,0 +1,6 @@
+main :: F Int = reduce reduce (-) 4 1
+                       to y in reduce (+) 1 2
+                               to x in (==) x y
+                to x in if x
+                           then (+) 0 1
+                           else (-) 1 0

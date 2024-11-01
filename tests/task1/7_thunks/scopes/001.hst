@@ -1,0 +1,7 @@
+main :: F Int
+  = let y :: Int = 7; in
+    let t :: U(F Int) = thunk(produce y); in
+    let f :: U(U(F Int) -> Int -> F Int) =
+          thunk(recfun f :: (U(F Int) -> Int -> F Int) x =
+                  recfun g :: (Int -> F Int) y = force x); in
+      force f t 4

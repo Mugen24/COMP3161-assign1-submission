@@ -1,0 +1,5 @@
+main :: F Bool = (recfun _f :: Int -> F Bool _x = reduce (<) 0 10
+                                                  to x in if x
+                                                             then produce True
+                                                             else reduce (-) _x 1
+                                                                  to x in force _f x) 16

@@ -1,0 +1,4 @@
+main :: F Int
+  = let x :: U(F Int) = thunk(1/0);
+    in reduce(produce x)
+       to y in force y

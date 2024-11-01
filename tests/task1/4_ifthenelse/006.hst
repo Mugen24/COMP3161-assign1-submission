@@ -1,0 +1,4 @@
+main :: F Bool = reduce (<) 0 1
+                 to x in if x
+                            then produce True
+                            else produce False

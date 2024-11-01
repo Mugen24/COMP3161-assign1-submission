@@ -1,0 +1,4 @@
+main :: F Int = reduce reduce (*) 3 4
+                       to x in (/) x 5
+                to x in reduce (+) 1 2
+                        to y in (-) y x

@@ -1,0 +1,1 @@
+main :: F [Int] = force Cons 3 Nil

@@ -1,0 +1,8 @@
+main :: F Int = reduce (recfun h :: Int -> F (U (Int -> F Int)) z = produce (thunk (recfun g :: Int -> F Int y = reduce (==) z 10
+                                                                                                                     to x in if x
+                                                                                                                                then produce y
+                                                                                                                                else reduce (+) y 2
+                                                                                                                                     to x in reduce reduce (+) z 1
+                                                                                                                                                    to x in force h x
+                                                                                                                                             to f in force f x))) 0
+                to f in force f 2 -- 2^20

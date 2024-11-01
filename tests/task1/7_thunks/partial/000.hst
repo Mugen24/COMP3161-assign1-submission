@@ -1,0 +1,3 @@
+main :: F Int
+  = reduce 1/0
+    to x in produce 5

@@ -1,0 +1,22 @@
+main :: F Bool =
+    let f :: U (Int -> F Int) =
+           thunk (recfun f :: (Int -> F Int) x = -1);
+    in let f :: U (Int -> F Int) =
+           thunk (recfun f :: (Int -> F Int) x = -2);
+    in let f :: U (Int -> F Int) =
+           thunk (recfun f :: (Int -> F Int) x = -3);
+    in let f :: U (Int -> F Int) =
+           thunk (recfun f :: (Int -> F Int) x = -4);
+    in let f :: U (Int -> F Int) =
+           thunk (recfun f :: (Int -> F Int) x = -5);
+    in let f :: U (Int -> F Int) =
+           thunk (recfun f :: (Int -> F Int) x = -6);
+    in let f :: U (Int -> F Int) =
+           thunk (recfun f :: (Int -> F Int) x = -7);
+    in let f :: U (Int -> F Int) =
+           thunk (recfun f :: (Int -> F Int) x = -8);
+    in let f :: U (Int -> F Int) =
+           thunk (recfun f :: (Int -> F Int) x = -9);
+    in let f :: U (Int -> F Bool) =
+           thunk (recfun f :: (Int -> F Bool) x = produce True);
+    in force f 7

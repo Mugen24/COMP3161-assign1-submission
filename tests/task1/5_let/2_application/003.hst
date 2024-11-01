@@ -1,0 +1,5 @@
+main :: F Int
+     =
+    let f :: U (Int -> F Int) =
+            thunk(recfun f :: (Int -> F Int) x = let g :: Int = x; in produce g);
+    in force f 7

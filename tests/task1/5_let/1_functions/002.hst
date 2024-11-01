@@ -1,0 +1,7 @@
+-- make sure they bind correctly
+main :: F Int =
+    let x :: Int = 2;
+    in let
+        square :: U (Int -> F Int)
+               = thunk (recfun square :: (Int -> F Int) x = x * x);
+    in reduce force square x to x in force square x

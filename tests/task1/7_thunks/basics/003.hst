@@ -1,0 +1,3 @@
+main :: F [Int]
+  = reduce produce (thunk(produce Nil))
+    to x in force x

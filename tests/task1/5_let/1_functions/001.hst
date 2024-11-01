@@ -1,0 +1,17 @@
+main :: F Bool =
+    let lt0 :: U (Int -> F Bool)
+            = thunk (recfun lt0 :: (Int -> F Bool) x =
+                         reduce x < 0 to b in
+                           if b then produce True else produce False);
+    in let  
+        gt1 :: U (Int -> F Bool)
+            = thunk (recfun gt1 :: (Int -> F Bool) x = x > 1);
+    in reduce (- 10)
+       to x in
+         reduce force lt0 x
+         to b in
+           if b then
+             reduce force gt1 0
+             to c in
+               if c then produce False else produce True
+           else produce False

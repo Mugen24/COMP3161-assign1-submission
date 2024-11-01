@@ -1,0 +1,3 @@
+main :: F Bool = if True
+                    then produce True
+                    else produce False

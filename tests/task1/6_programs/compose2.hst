@@ -1,0 +1,2 @@
+main :: F Int = (recfun _compose2'' :: Int -> F Int _x = reduce (*) _x _x
+                                                         to x in (*) x 2) 3

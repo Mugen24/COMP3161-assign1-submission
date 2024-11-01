@@ -1,0 +1,10 @@
+main :: F Bool
+     = 
+    let isTrue :: U (Bool -> F Bool) =
+            thunk(recfun isTrue :: (Bool -> F Bool) x = 
+                  if x then produce True else produce False);
+    
+    in let
+        f :: U (Int -> F Bool) =
+            thunk(recfun f :: (Int -> F Bool) x = x == 10);
+    in reduce force f 11 to y in force isTrue y

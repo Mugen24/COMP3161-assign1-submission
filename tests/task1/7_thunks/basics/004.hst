@@ -1,0 +1,3 @@
+main :: F Int
+  = let x :: U(F Int) = thunk(1/0);
+    in produce 1

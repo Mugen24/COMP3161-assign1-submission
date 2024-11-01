@@ -1,0 +1,1 @@
+main :: F Int = produce (thunk (recfun _x :: F Int = (+) 1 _x))

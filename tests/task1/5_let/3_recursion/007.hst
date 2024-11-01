@@ -1,0 +1,10 @@
+main :: F Int = reduce reduce reduce force Cons 1 Nil
+                              to x in force Cons 2 x
+                       to x in force Cons 3 x
+                to x in (recfun sum :: [Int] -> F Int y = reduce null y
+                                                          to x in if x
+                                                                     then produce 0
+                                                                     else reduce reduce tail y
+                                                                                 to x in force sum x
+                                                                          to z in reduce head y
+                                                                                  to x in (+) x z) x

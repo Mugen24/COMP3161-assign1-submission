@@ -1,0 +1,4 @@
+main :: F Int = reduce null Nil
+                to x in if x
+                           then produce 0
+                           else produce 1

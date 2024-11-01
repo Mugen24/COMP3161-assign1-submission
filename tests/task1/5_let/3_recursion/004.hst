@@ -1,0 +1,5 @@
+main :: F Int = (recfun f :: Int -> F Int y = reduce y < 100
+                                                to x in if x
+                                                           then reduce y + 1
+                                                                to x in force f x
+                                                           else produce y) 0

@@ -1,0 +1,2 @@
+main :: F Int
+  = force(thunk(3 % 2))

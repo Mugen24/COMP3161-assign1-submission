@@ -1,0 +1,14 @@
+main :: F Int
+     =
+ let x :: Int = 8;
+
+ -- do they correctly get the environment for the partial eval?
+ in let 
+     f :: U (Int -> Int -> F Int) = thunk(
+        recfun f :: (Int -> Int -> F Int) w =
+          recfun g :: (Int -> F Int) y =
+               reduce y + x to a
+               in reduce a + w to b in
+               b + 1);
+
+ in force f 3 2

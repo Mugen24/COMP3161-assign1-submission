@@ -1,0 +1,23 @@
+main :: F Int
+     =
+    let not :: U (Bool -> F Bool) =
+        thunk (recfun not :: (Bool -> F Bool) x = 
+                 if x then produce False else produce True);
+
+    in let 
+        f :: U (Bool -> Bool -> Bool -> Bool -> F Int) = thunk(
+            recfun f :: (Bool -> Bool -> Bool -> Bool -> F Int) x =
+                recfun g :: (Bool -> Bool -> Bool -> F Int) y =
+                    recfun h :: (Bool -> Bool -> F Int) z = 
+                        recfun i :: (Bool -> F Int) _ =
+                            reduce force not z
+                            to b in if b  -- and
+                            then reduce force not y
+                            to b' in if b'  -- and
+                            then reduce force not x
+                            to b'' in if b'' then produce 1
+                            else produce 0 
+                            else produce 0 
+                            else produce 0);
+            
+    in force f False False False False   -- should be 1

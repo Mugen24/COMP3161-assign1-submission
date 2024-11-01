@@ -1,0 +1,7 @@
+main :: F Bool =
+  let a :: Bool = True;
+  in let b :: Bool = False;
+     in reduce (<) 1 2
+        to x in if x
+                  then produce a
+                  else produce b

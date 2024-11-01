@@ -1,0 +1,12 @@
+-- The 25th fibonacci number
+main :: F Int = (recfun fib :: Int -> F Int n = reduce (==) n 0
+                                                to x in if x
+                                                           then produce 0
+                                                           else reduce (==) n 1
+                                                                to x in if x
+                                                                           then produce 1
+                                                                           else reduce reduce (-) n 1
+                                                                                       to x in force fib x
+                                                                                to y in reduce reduce (-) n 2
+                                                                                               to x in force fib x
+                                                                                        to x in (+) x y) 25

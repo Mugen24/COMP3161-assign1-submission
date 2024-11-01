@@ -1,0 +1,2 @@
+main :: F Bool = reduce force Cons 2 Nil
+                 to x in null x

@@ -1,0 +1,52 @@
+main :: F Int =
+    let     a :: Int = 1;
+    in let  b :: Int  = 2;
+    in let  c :: Int  = 3;
+    in let  d :: Int  = 4;
+    in let  e :: Int  = 5;
+    in let  f :: Int  = 6;
+    in let  g :: Int  = 7;
+    in let  h :: Int  = 8;
+    in let  i :: Int  = 9;
+    in let  j :: Int  = 10;
+    in let  k :: Int  = 11;
+    in let  l :: Int  = 12;
+    in let  m :: Int  = 13;
+    in let  n :: Int  = 14;
+    in let  o :: Int  = 15;
+    in let  p :: Int  = 16;
+    in let  q :: Int  = 17;
+    in let  r :: Int  = 18;
+    in let  s :: Int  = 19;
+    in let  t :: Int  = 20;
+    in let  u :: Int  = 21;
+    in let  v :: Int  = 22;
+    in let  w :: Int  = 23;
+    in let  x :: Int  = 24;
+    in let  y :: Int  = 25;
+    in let  z :: Int  = 26;
+    in reduce a*b to a1
+    in reduce a1*c to b1
+    in reduce b1*d to c1
+    in reduce c1*e to d1
+    in reduce d1*f to e1
+    in reduce e1*g to f1
+    in reduce f1*h to g1
+    in reduce g1*i to h1
+    in reduce h1*j to i1
+    in reduce i1*k to j1
+    in reduce j1*l to k1
+    in reduce k1*m to l1
+    in reduce l1*n to m1
+    in reduce m1*o to n1
+    in reduce n1*p to o1
+    in reduce o1*q to p1
+    in reduce p1*r to q1
+    in reduce q1*s to r1
+    in reduce r1*t to s1
+    in reduce s1*u to t1
+    in reduce t1*v to u1
+    in reduce u1*w to v1
+    in reduce v1*x to w1
+    in reduce w1*y to x1
+    in x1*z
