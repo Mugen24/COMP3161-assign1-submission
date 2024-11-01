@@ -9,8 +9,6 @@ import MinHS.Pretty(datacon,numeric,ANSIPretty(..))
 import Prettyprinter as PP
 import Prettyprinter.Render.Terminal
 
-import Debug.Trace
-import Text.Printf
 
 instance {-# OVERLAPPING #-} ANSIPretty Value where
   ansipp (I i) = numeric $ i
@@ -56,7 +54,7 @@ evalV _ (Con "True") = B True
 evalV _ (Con "False") = B False
 evalV e (Var x) = 
   case E.lookup e x of
-    Just y -> trace (show y ++ "\n") y
+    Just y -> y
     Nothing -> error "Accessing undefined variable"
 
 evalV _ (Con "Nil" ) = Nil
@@ -172,8 +170,6 @@ evalC e ref@(App (App (Prim x) vexpr1) vexpr2) =
       (Prim Add) -> P(I (v1' + v2'))
       (Prim Mul) -> P(I (v1' * v2'))
       (Prim Quot) -> 
-        trace ("Quote /n v1: " ++ show v1 ++ "v2: " ++ show v2)
-        $
         if v2' == 0 then error "Division by zero"
         else P(I (v1' `div` v2'))
 
