@@ -55,13 +55,9 @@ evalV _ (Num n) = I n
 evalV _ (Con "True") = B True
 evalV _ (Con "False") = B False
 evalV e (Var x) = 
-  trace ("Var: " ++ show x ++ "\n")
-  $
   case E.lookup e x of
     Just y -> trace (show y ++ "\n") y
-    Nothing -> 
-      trace ("undefined var" ++ show x ++ "\n" ++ show e) 
-      (error "Accessing undefined variable")
+    Nothing -> error "Accessing undefined variable"
 
 evalV _ (Con "Nil" ) = Nil
 evalV e (Thunk cexpr) = Sus e cexpr
@@ -80,7 +76,6 @@ evalC e (If vexpr c1 c2) =
       (B True) -> 
         evalC e c1
       (B False) -> 
-        -- trace ("If false: " ++ show e)
         evalC e c2
       _ -> error "vexpr did not resolve to bool"
 
@@ -93,47 +88,22 @@ evalC e (Force vexpr) =
     case v1 of
       -- cexpr evaluate further
       (Sus e1 cexpr) -> 
-        -- trace (
-        --   "Force: vexpresion: " ++ show vexpr ++ "\n" ++
-        --   "Force: evaluated vexpresion: " ++ show (evalV e vexpr)
-        -- )
         evalC e1 cexpr
-      -- Nothing more to evaluate
       _ -> 
-        -- trace (
-        --   "Force: vexpresion: " ++ show vexpr ++ "\n" ++
-        --   "Force: evaluated vexpresion: " ++ show (evalV e vexpr)
-        -- )
         P $ evalV e vexpr
-  -- let 
-  --   v1 = evalV e vexpr
-  -- in 
-  --   case v1 of
-  --     (Sus e1 cexpr) -> evalC e cexpr -- TODO: have to be e otherwise args is not defined
-  --     _ -> error "not a closure"
 
   
--- TODO: for some reason id shadows existing var so id1
 evalC e (Reduce id1 cexpr1 cexpr2) = 
-  -- trace ("REDUCE: \n" ++ 
-  --   "  cexpr1: " ++ show cexpr1 ++ "\n" ++
-  --   "  cexpr2: " ++ show cexpr2 
-  -- )
-  -- $
   let 
     (P v1) = evalC e cexpr1
     newEnv = E.add e (id1, v1)
   in 
-    -- trace (show v1)
-    -- $
     v1 
     `seq`
     evalC newEnv cexpr2
 
 
 evalC e ref@(Let (vbind:rest) cexpr) =
-  -- trace ("Param: " ++ show ref ++ "\n")
-  -- $
   let 
     (VBind id1 _ vexpr) = vbind
     newEnv = E.add e (id1, evalV e vexpr)
@@ -148,8 +118,6 @@ evalC e ref@(Let (vbind:rest) cexpr) =
 
 -- Binary Operator
 evalC e ref@(App (Prim x) vexpr) = 
-  -- trace ("Param: " ++ show ref ++ "\n")
-  -- $
   let 
     v1 = evalV e vexpr
   in
@@ -185,10 +153,6 @@ evalC e ref@(App (Prim x) vexpr) =
 
 -- Unary Operator
 evalC e ref@(App (App (Prim x) vexpr1) vexpr2) = 
-  -- trace (
-  --   "Applicator primitive: \n" 
-  --   )
-  -- $
   let 
     v1 = evalV e vexpr1
     v2 = evalV e vexpr2
@@ -235,11 +199,7 @@ evalC e ref@(App (App (Prim x) vexpr1) vexpr2) =
       (Prim Ne) -> 
         if v1' /= v2' then P (B True)
                   else P (B False)
-      _ -> 
-        trace ("Shouldn't happen: " ++ show ref)
-        $
-        error "Unhandled case"
-        -- P Nil
+      _ -> error "Unhandled case"
 
 
 
@@ -266,66 +226,33 @@ evalC e (App (App (Force (Con "Cons")) vexpr1) vexpr2) =
 
 
 evalC e reg@(Recfun (CBind id1 _ _ cexpr))= 
-    -- trace ("Recfun: " ++ show id1)
     P (Sus e reg)
 
 
 evalC e ref@(App cexpr vexpr) = 
-  trace (
-    "Query: " ++ show ref ++ "\n" ++
-    "App:\n" ++ 
-    "E: \n" ++ show e ++ "\n" ++
-    "cexpr: " ++ show cexpr ++ "\n" ++
-    "vexpr: " ++ show vexpr ++ "\n"
-  )
-  $
   let 
     v1 = evalV e vexpr
     -- Can also be Nil
 
     P c1 = evalC e cexpr
   in
-    trace (
-      printf "v1: %s \n\
-             \c1: %s\n" (show v1) (show c1) 
-    )
-    $ 
     case c1 of
       func@(Sus e1 (Recfun (CBind funcName funcType [param] funcBody))) -> 
         let 
           newEnv = E.addAll e1 [(param, v1), (funcName, func)]
         in
-          trace ("App Recfunc " ++ show c1 ++ " " ++ show v1)
           evalC newEnv funcBody
       
       -- Requires another param
       func@(Sus e1 cexpr1) ->
-        -- trace (
-        --   "App other Recfunc: evalC " ++ show e1 ++ " (App " ++ show cexpr1 ++ " " ++ show vexpr ++")"
-        -- )
-        -- $
-        -- Can't pass vexpr like this 
-        -- Some can only be evaluated at e
-        -- Need to fully evaluate v1 to Num or Con ??
-        -- evalC e1 (App cexpr1 (Num num))
-        -- let 
-        --   (E.Env n1) = e
-        --   (E.Env n2) = e1
-        --   newEnv = E.Env (M.union n2 n1)
-        -- in
         case v1 of 
           (I num) -> evalC e1 (App cexpr1 (Num num))
           Nil -> evalC e1 (App cexpr1 (Con "Nil"))
-        -- evalC e1 (App c1 (Num num))
-        -- evalC e1 (App cexpr1 vexpr)
-        -- evalC newEnv (App cexpr1 vexpr)
 
       _ -> 
-        trace ("Unhandled: App " ++ show c1 ++ " " ++ show v1)
         error "wot"
 
 
 evalC g y = 
-  trace ("calling evalc with g = " ++ show g ++ " ; y = " ++ show y) 
   error "TODO: implement evalC"
  
